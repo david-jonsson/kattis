@@ -7,17 +7,26 @@ My solution to Núll og tveir, which wont get accepted since it works on integer
 #include <cassert>
 
 template<int N>
-struct masks_s {
-    constexpr masks_s() : arr() 
+struct masks_s
+{
+    uint64_t 
+        twos_[N],
+        two_zeros_[N];
+    constexpr masks_s() : 
+        twos_(), 
+        two_zeros_()
     {
-        arr[0] = 0;
+        twos_[0] = 0;
+        two_zeros_[0] = 1;
         for (auto i = 1; i != N; ++i)
-            arr[i] = 2 * std::pow(10, i - 1) + arr[i -1];
-        arr[0] = 1;
+        {
+            twos_[i]      = 2 * std::pow(10, i - 1) + twos_[i -1];
+            two_zeros_[i] = 2 * std::pow(10, i);
+        }
+        twos_[0] = 1;
     }
-    uint64_t arr[N];
 };
-constexpr masks_s masks = masks_s<20>();
+constexpr masks_s masks = masks_s<19>();
 constexpr uint64_t rec(uint64_t n) {
     switch (n)
     {
@@ -29,10 +38,9 @@ constexpr uint64_t rec(uint64_t n) {
                 log2    = std::log10(n/2),
                 log3    = std::log10(n/3),
                 combs   = std::pow(2, log2),
-                mod     = 2 * std::pow(10, log2),
                 rest    = log3 == log2 
-                            ? masks.arr[log3] 
-                            : n % mod;
+                            ? masks.twos_[log3]
+                            : n % masks.two_zeros_[log2];
             return combs + rec(rest);
     }    
 }
