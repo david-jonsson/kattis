@@ -50,13 +50,16 @@ int main() {
     while (std::getline(std::cin, line))
     {
         uint64_t n{};
-        try { n = std::stoll(line); }
+        try 
+        {
+            n = std::stoll(line);
+            std::cout << rec(n) << std::endl;
+        }
         catch (std::out_of_range &e) 
         { 
             std::cout << "Integer overflow\n"; 
             continue;
         }
-        std::cout << rec() << std::endl;
     }
     return 0;
 }
