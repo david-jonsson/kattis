@@ -1,4 +1,4 @@
-# noll-tv-er
+# [Núll og tveir](https://open.kattis.com/problems/nullogtveir)
 My solution to Núll og tveir, which wont get accepted since it works on integers. Since this problem deals with number up to 10^50 we need to work with strings or big ints (which there are none of in c++) to solve the whole set of problems. But I didnt realise that until I already implemented the algorithm. Anyway, I liked my solution so I will post it here:
 
 ```c++
