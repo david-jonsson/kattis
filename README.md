@@ -1,5 +1,5 @@
 # noll-tv-er
-My solution to Núll og tveir, which wont get accepted since it works on integers. Since this problem deals with number up to 10^50 we need to work with strings or big ints (which there are none of in c++) to solve the whole set of problems. But I didnt realise that until I already implemented the algorithm. But I liked my solution so I will post it here:
+My solution to Núll og tveir, which wont get accepted since it works on integers. Since this problem deals with number up to 10^50 we need to work with strings or big ints (which there are none of in c++) to solve the whole set of problems. But I didnt realise that until I already implemented the algorithm. Anyway, I liked my solution so I will post it here:
 
 ```c++
 #include <iostream>
@@ -16,10 +16,10 @@ constexpr uint64_t rec(uint64_t n) {
             uint64_t
                 log2    = std::log10(n/2),
                 log3    = std::log10(n/3),
-                combs   = std::pow(2, log2),
+                done    = (log3 == log2),
+                combs   = std::pow(2, (log2 + (done ? 1 : 0))),
                 rest    = n % (uint64_t)(2 * std::pow(10, log2));
-            if (log3 == log2) return std::pow(2, log2 + 1);
-            return combs + rec(rest);
+            return combs + (done ? 0 : rec(rest));
     }    
 }
 
